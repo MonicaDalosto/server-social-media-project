@@ -1,9 +1,11 @@
-const express = require("express");
-const corsMiddleWare = require("cors");
+const express = require('express');
+const corsMiddleWare = require('cors');
 // Auth middleware: our own code. Checks for the existence of a token in a header called `authentication`.
-const authMiddleWare = require("./auth/middleware");
-const authRouter = require("./routers/auth");
-const { PORT } = require("./config/constants");
+const authMiddleWare = require('./auth/middleware');
+const authRouter = require('./routers/auth');
+const spaceRouter = require('./routers/space');
+const storyRouter = require('./routers/story');
+const { PORT } = require('./config/constants');
 
 // Create an express app
 const app = express();
@@ -31,22 +33,24 @@ app.use(bodyParserMiddleWare);
  * Define your routes and attach our routers here (now that middlewares are configured)
  */
 
-app.use("/auth", authRouter);
+app.use('/auth', authRouter);
+app.use('/spaces', spaceRouter);
+app.use('/stories', storyRouter);
 
 // POST endpoint which requires a token for testing purposes, can be removed
-app.post("/authorized_post_request", authMiddleWare, (req, res) => {
+app.post('/authorized_post_request', authMiddleWare, (request, response) => {
   // accessing user that was added to req by the auth middleware
-  const user = req.user;
+  const user = request.user;
   // don't send back the password hash
-  delete user.dataValues["password"];
+  delete user.dataValues['password'];
 
-  res.json({
+  response.json({
     youPosted: {
-      ...req.body,
+      ...request.body
     },
     userFoundWithToken: {
-      ...user.dataValues,
-    },
+      ...user.dataValues
+    }
   });
 });
 
