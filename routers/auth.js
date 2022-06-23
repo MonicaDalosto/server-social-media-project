@@ -3,6 +3,8 @@ const { Router } = require('express');
 const { toJWT } = require('../auth/jwt');
 const authMiddleware = require('../auth/middleware');
 const User = require('../models/').user;
+const Space = require('../models/').space;
+const Story = require('../models/').story;
 const { SALT_ROUNDS } = require('../config/constants');
 
 const router = new Router();
@@ -17,6 +19,7 @@ router.post('/login', async (request, response, next) => {
         .send({ message: 'Please provide both email and password' });
     }
 
+    //  Feature 4: when the login occur the endpoint will send all the information about the user, includes Space
     const user = await User.findOne({ where: { email } });
 
     if (!user || !bcrypt.compareSync(password, user.password)) {
@@ -27,7 +30,18 @@ router.post('/login', async (request, response, next) => {
 
     delete user.dataValues['password']; // don't send back the password hash
     const token = toJWT({ userId: user.id });
-    return response.status(200).send({ token, user: user.dataValues });
+
+    const { id } = user.dataValues;
+
+    const mySpace = await Space.findOne({
+      where: { userId: id },
+      include: [Story]
+    });
+
+    const fullUser = { ...user.dataValues, mySpace };
+
+    return response.status(200).send({ token, user: fullUser });
+    // return response.status(200).send({ token, user: user.dataValues }); // previous code from the template;
   } catch (error) {
     console.log(error);
     return response
@@ -72,10 +86,21 @@ router.post('/signup', async (request, response) => {
 // The /me endpoint can be used to:
 // - get the users email & name using only their token
 // - checking if a token is (still) valid
-router.get('/me', authMiddleware, async (req, res) => {
+router.get('/me', authMiddleware, async (request, response) => {
   // don't send back the password hash
-  delete req.user.dataValues['password'];
-  res.status(200).send({ ...req.user.dataValues });
+  delete request.user.dataValues['password'];
+
+  const { id } = request.user.dataValues;
+
+  const mySpace = await Space.findOne({
+    where: { userId: id },
+    include: [Story]
+  });
+
+  const fullUser = { ...request.user.dataValues, mySpace };
+
+  // response.status(200).send({ ...request.user.dataValues }); // previous code from template
+  response.status(200).send(fullUser);
 });
 
 module.exports = router;

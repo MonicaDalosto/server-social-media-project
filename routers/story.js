@@ -13,4 +13,23 @@ router.get('/', async (request, response) => {
   }
 });
 
+router.delete('/:id', async (request, response, next) => {
+  try {
+    const { id } = request.params; // the value is from the thunk;
+    const storyToDelete = await Story.findByPk(Number(id));
+
+    if (!storyToDelete) {
+      console.log('Story not found!');
+      return response.status(404).send('Story not found!');
+    }
+
+    await storyToDelete.destroy();
+
+    return response.status(204).send('Story terminated');
+  } catch (error) {
+    console.log('error from the delete endpoint: ', error);
+    next(error);
+  }
+});
+
 module.exports = router;
