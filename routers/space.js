@@ -25,5 +25,21 @@ router.get('/details/:id', async (request, response, next) => {
     next(error);
   }
 });
+// http POST :4000/auth/login email='alice@wonderland.com' password=downtherabbithole
+// http -v POST :4000/spaces title="Monica's space" description=null userId=3
+router.post('/', async (request, response, next) => {
+  try {
+    const { name, userId } = request.body; // send the name and userId on thunks to create the mySpace:
+    const newSpace = await Space.create({
+      title: `${name}'s space`,
+      description: null,
+      userId
+    });
+    response.send(newSpace);
+  } catch (error) {
+    console.log('error from mySpace: ', error.message);
+    next(error);
+  }
+});
 
 module.exports = router;
