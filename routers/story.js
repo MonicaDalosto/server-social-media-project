@@ -7,7 +7,6 @@ const router = new Router();
 router.get('/', async (request, response) => {
   try {
     const allStories = await Story.findAll();
-    console.log('all spaces: ', allStories);
     response.send(allStories);
   } catch (error) {
     console.log('error from all stories: ', error.message);
