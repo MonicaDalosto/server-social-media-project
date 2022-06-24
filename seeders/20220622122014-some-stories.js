@@ -44,6 +44,36 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
           spaceId: 2
+        },
+        {
+          name: 'Fifth Story',
+          content:
+            'Fifth Story - Integer lacinia nunc quis nunc egestas, non facilisis nisi consectetur. Donec consectetur purus at magna fermentum molestie. Aenean in leo ultricies, gravida dui ut, euismod sapien. Quisque rutrum mattis accumsan. In a feugiat odio. Sed neque libero, malesuada luctus nisi vitae, dictum tincidunt sem. Pellentesque eget ornare tortor, ac commodo quam. Sed consequat odio ligula, non vehicula neque fringilla id. Maecenas vitae vehicula lacus. Suspendisse potenti. Duis sodales, risus vitae interdum sollicitudin, est sem porta ipsum, in sagittis sem massa quis tortor. Pellentesque iaculis fermentum magna sed semper. Aliquam sit amet pharetra lorem, quis mollis lorem. Mauris venenatis vestibulum mauris.',
+          imageUrl:
+            'https://images.unsplash.com/photo-1509233725247-49e657c54213?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=749&q=80',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          spaceId: 1
+        },
+        {
+          name: 'Sixth Story',
+          content:
+            'Sixty Story - Integer lacinia nunc quis nunc egestas, non facilisis nisi consectetur. Donec consectetur purus at magna fermentum molestie. Aenean in leo ultricies, gravida dui ut, euismod sapien. Quisque rutrum mattis accumsan. In a feugiat odio. Sed neque libero, malesuada luctus nisi vitae, dictum tincidunt sem. Pellentesque eget ornare tortor, ac commodo quam. Sed consequat odio ligula, non vehicula neque fringilla id. Maecenas vitae vehicula lacus. Suspendisse potenti. Duis sodales, risus vitae interdum sollicitudin, est sem porta ipsum, in sagittis sem massa quis tortor. Pellentesque iaculis fermentum magna sed semper. Aliquam sit amet pharetra lorem, quis mollis lorem. Mauris venenatis vestibulum mauris.',
+          imageUrl:
+            'https://images.unsplash.com/photo-1509233725247-49e657c54213?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=749&q=80',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          spaceId: 1
+        },
+        {
+          name: 'Seventh Story',
+          content:
+            'Seventh Story - Integer lacinia nunc quis nunc egestas, non facilisis nisi consectetur. Donec consectetur purus at magna fermentum molestie. Aenean in leo ultricies, gravida dui ut, euismod sapien. Quisque rutrum mattis accumsan. In a feugiat odio. Sed neque libero, malesuada luctus nisi vitae, dictum tincidunt sem. Pellentesque eget ornare tortor, ac commodo quam. Sed consequat odio ligula, non vehicula neque fringilla id. Maecenas vitae vehicula lacus. Suspendisse potenti. Duis sodales, risus vitae interdum sollicitudin, est sem porta ipsum, in sagittis sem massa quis tortor. Pellentesque iaculis fermentum magna sed semper. Aliquam sit amet pharetra lorem, quis mollis lorem. Mauris venenatis vestibulum mauris.',
+          imageUrl:
+            'https://images.unsplash.com/photo-1509233725247-49e657c54213?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=749&q=80',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          spaceId: 1
         }
       ],
       {}
