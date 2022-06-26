@@ -46,4 +46,26 @@ router.post('/', authMiddleware, async (request, response, next) => {
   }
 });
 
+// http -v DELETE :4000/favorites userId=3 storyId=3 Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTY1NjI0ODMzOSwiZXhwIjoxNjU2MjU1NTM5fQ.HQ_vUVeR7lfDKqikv5sj-VZ4jGaIfNXkFJWPxTx5A7A"
+router.delete('/', authMiddleware, async (request, response, next) => {
+  try {
+    const { userId, storyId } = request.body;
+    console.log('data inside the endpoint: ', userId, storyId);
+    const storyToDelete = await Favorite.findOne({
+      where: { userId: userId, storyId: storyId }
+    });
+
+    if (!storyToDelete) {
+      return response.status(404).send('Story not found!');
+    }
+
+    await storyToDelete.destroy();
+
+    return response.status(204).send('Story terminated');
+  } catch (error) {
+    console.log('error from the delete endpoint: ', error);
+    next(error);
+  }
+});
+
 module.exports = router;
