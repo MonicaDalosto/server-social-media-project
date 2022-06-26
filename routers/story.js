@@ -1,5 +1,7 @@
 const { Router } = require('express');
 const Story = require('../models/').story;
+const User = require('../models/').user;
+const Favorite = require('../models').favorite;
 const authMiddleware = require('../auth/middleware');
 
 const router = new Router();
@@ -46,6 +48,21 @@ router.delete('/:id', authMiddleware, async (request, response, next) => {
     return response.status(204).send('Story terminated');
   } catch (error) {
     console.log('error from the delete endpoint: ', error);
+    next(error);
+  }
+});
+
+// http -v POST :4000/stories/favorites userId=2 storyId=6 Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY1NjE2NjY1OSwiZXhwIjoxNjU2MTczODU5fQ.7wqdHru4D_kyXa-78XM379vRCmb-VkdC1ZYNcE9JZSc"
+router.post('/favorites', authMiddleware, async (request, response, next) => {
+  try {
+    const { userId, storyId } = request.body;
+    const newFavorite = await Favorite.create({
+      userId,
+      storyId
+    });
+    response.send(newFavorite);
+  } catch (error) {
+    console.log('error from favorite router: ', error.message);
     next(error);
   }
 });
