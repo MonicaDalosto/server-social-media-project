@@ -5,6 +5,7 @@ const authMiddleware = require('../auth/middleware');
 const User = require('../models/').user;
 const Space = require('../models/').space;
 const Story = require('../models/').story;
+const Favorite = require('../models/').favorite;
 const { SALT_ROUNDS } = require('../config/constants');
 
 const router = new Router();
@@ -38,7 +39,12 @@ router.post('/login', async (request, response, next) => {
       include: [Story]
     });
 
-    const fullUser = { ...user.dataValues, mySpace };
+    const myFavorites = await Favorite.findAll({
+      where: { userId: id },
+      include: [Story]
+    });
+
+    const fullUser = { ...user.dataValues, mySpace, myFavorites };
 
     return response.status(200).send({ token, user: fullUser });
     // return response.status(200).send({ token, user: user.dataValues }); // previous code from the template;
@@ -97,7 +103,14 @@ router.get('/me', authMiddleware, async (request, response) => {
     include: [Story]
   });
 
-  const fullUser = { ...request.user.dataValues, mySpace };
+  const myFavorites = await Favorite.findAll({
+    where: { userId: id },
+    include: [Story]
+  });
+
+  const fullUser = { ...request.user.dataValues, mySpace, myFavorites };
+
+  // const fullUser = { ...request.user.dataValues, mySpace };
 
   // response.status(200).send({ ...request.user.dataValues }); // previous code from template
   response.status(200).send(fullUser);
