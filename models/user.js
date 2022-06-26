@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // - `user hasOne space`
       user.hasOne(models.space);
+      // user hasMany bid
+      user.hasMany(models.bid);
       // Favorite: many to many relations: story belongs to many user
       user.belongsToMany(models.story, {
         through: 'favorite',

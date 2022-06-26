@@ -16,6 +16,16 @@ router.get('/', async (request, response) => {
   }
 });
 
+router.get('/:id', async (request, response) => {
+  try {
+    const { id } = request.params;
+    const story = await Story.findByPk(id);
+    response.send(story);
+  } catch (error) {
+    console.log('error from all stories: ', error.message);
+  }
+});
+
 // http -v POST :4000/stories name="Cool Story" content="Some cool story from Codaisseur final assesment on class 59" imageUrl="https://coursereport-production.imgix.net/uploads/school/logo/426/original/codaisseur-square.png?w=200&h=200&dpr=1&q=75" spaceId=1
 router.post('/', authMiddleware, async (request, response, next) => {
   try {

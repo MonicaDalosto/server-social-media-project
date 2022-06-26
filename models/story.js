@@ -10,6 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // `story belongsTo space`
       story.belongsTo(models.space, { foreignKey: 'spaceId' });
+      // story hasMany bid
+      story.hasMany(models.bid);
       // Favorite: many to many relations: story belongs to many user
       story.belongsToMany(models.user, {
         through: 'favorite',

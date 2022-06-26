@@ -21,11 +21,35 @@ module.exports = {
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL'
     });
+
+    await queryInterface.addColumn('bids', 'userId', {
+      type: Sequelize.INTEGER,
+      references: {
+        model: 'users',
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'SET NULL'
+    });
+
+    await queryInterface.addColumn('bids', 'storyId', {
+      type: Sequelize.INTEGER,
+      references: {
+        model: 'stories',
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'SET NULL'
+    });
   },
 
   down: async (queryInterface, Sequelize) => {
     await queryInterface.removeColumn('spaces', 'userId');
 
     await queryInterface.removeColumn('stories', 'spaceId');
+
+    await queryInterface.removeColumn('bids', 'userId');
+
+    await queryInterface.removeColumn('bids', 'storyId');
   }
 };
