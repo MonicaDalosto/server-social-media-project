@@ -9,7 +9,22 @@ const router = new Router();
 // http -v localhost:4000/favorites
 router.get('/', async (request, response) => {
   try {
-    response.send('Hello from Favorites');
+    const allMyFavorites = await Favorite.findAll();
+    response.send(allMyFavorites);
+  } catch (error) {
+    console.log('error from Favorites: ', error.message);
+  }
+});
+
+// http -v localhost:4000/favorites/myfavorites/1 get all favorites from the specific user
+router.get('/myfavorites/:id', async (request, response) => {
+  try {
+    const { id } = request.params;
+    const allMyFavorites = await Favorite.findAll({
+      where: { userId: id },
+      include: [Story]
+    });
+    response.send(allMyFavorites);
   } catch (error) {
     console.log('error from Favorites: ', error.message);
   }
