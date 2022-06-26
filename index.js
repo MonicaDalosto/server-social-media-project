@@ -6,6 +6,7 @@ const authRouter = require('./routers/auth');
 const spaceRouter = require('./routers/space');
 const storyRouter = require('./routers/story');
 const favoriteRouter = require('./routers/favorite');
+const bidRouter = require('./routers/bid');
 const { PORT } = require('./config/constants');
 
 // Create an express app
@@ -38,6 +39,7 @@ app.use('/auth', authRouter);
 app.use('/spaces', spaceRouter);
 app.use('/stories', storyRouter);
 app.use('/favorites', favoriteRouter);
+app.use('/bids', bidRouter);
 
 // POST endpoint which requires a token for testing purposes, can be removed
 app.post('/authorized_post_request', authMiddleWare, (request, response) => {

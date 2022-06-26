@@ -1,7 +1,6 @@
 const { Router } = require('express');
 const Story = require('../models/').story;
-const User = require('../models/').user;
-const Favorite = require('../models').favorite;
+const Bid = require('../models/').bid;
 const authMiddleware = require('../auth/middleware');
 
 const router = new Router();
@@ -19,7 +18,7 @@ router.get('/', async (request, response) => {
 router.get('/:id', async (request, response) => {
   try {
     const { id } = request.params;
-    const story = await Story.findByPk(id);
+    const story = await Story.findByPk(id, { include: [Bid] });
     response.send(story);
   } catch (error) {
     console.log('error from all stories: ', error.message);
